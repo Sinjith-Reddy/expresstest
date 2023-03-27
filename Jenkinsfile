@@ -24,7 +24,7 @@ pipeline {
             sh 'docker build -t sinjithreddy/hello-world-js:latest .'
             }
         }
-       /* //Login and Push image to DockerHub 
+       //Login and Push image to DockerHub 
         stage ('Login to DockerHub'){
             steps {
                 sh  'echo $DockerHub_PSW | docker login -u $DockerHub_USR --password-stdin'
@@ -40,7 +40,7 @@ pipeline {
                 sh 'docker logout'
               }
             }
-        } */
+        }
         //deploy docker image
           stage('deploy docker image'){
               steps{
