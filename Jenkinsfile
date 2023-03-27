@@ -3,7 +3,7 @@ pipeline {
     environment {
         DockerHub = credentials('DockerHub')
         REMOTE_SERVER = '3.91.213.166'
-        REMOTE_USER = credentials('EC2')
+        REMOTE = credentials('EC2')
     }
     stages {
         // Fetch code from  github  
@@ -24,7 +24,7 @@ pipeline {
             sh 'docker build -t sinjithreddy/hello-world-js:latest .'
             }
         }
-        //Login and Push image to DockerHub 
+       /* //Login and Push image to DockerHub 
         stage ('Login to DockerHub'){
             steps {
                 sh  'echo $DockerHub_PSW | docker login -u $DockerHub_USR --password-stdin'
@@ -40,14 +40,14 @@ pipeline {
                 sh 'docker logout'
               }
             }
-        } 
+        } */
         //deploy docker image
           stage('deploy docker image'){
               steps{
                   sshagent(credentials:['centos']) {
-                      sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker stop hello-world-js || true && docker rm hello-world-js || true'"
-                      sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker pull sinjithreddy/hello-world-js'"
-                      sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker run --name hello-world-js -d -p 8000:3000 sinjithreddy/hello-world-js'"
+                      sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USR}@${REMOTE_SERVER} 'docker stop hello-world-js || true && docker rm hello-world-js || true'"
+                      sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USR}@${REMOTE_SERVER} 'docker pull sinjithreddy/hello-world-js'"
+                      sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USR}@${REMOTE_SERVER} 'docker run --name hello-world-js -d -p 8000:3000 sinjithreddy/hello-world-js'"
                   }
               }
             
