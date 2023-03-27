@@ -3,7 +3,7 @@ pipeline {
     environment {
         DockerHub = credentials('DockerHub')
         REMOTE_SERVER = '3.91.213.166'
-        REMOTE_USER = 'centos'
+        REMOTE_USER = credentials('EC2')
     }
     stages {
         // Fetch code from  github  
