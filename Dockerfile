@@ -6,9 +6,9 @@ RUN npm install pm2 -g
 
 
 #copying file
-COPY . .
+COPY . .  
 
-CMD ["npm", "install" ]
+CMD ["npm install"]
 
 #port
 EXPOSE 3000
