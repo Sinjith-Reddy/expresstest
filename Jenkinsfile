@@ -1,7 +1,7 @@
 pipeline {
     agent { label 'nodejs'}
     environment {
-        DOCKERHUB_CREDENTIALS = credentialId('DockerHub')
+        DockerHub = credentials('DockerHub')
         REMOTE_SERVER = '3.91.213.166'
         REMOTE_USER = 'centos'
     }
@@ -27,7 +27,7 @@ pipeline {
         //Login and Push image to DockerHub 
         stage ('Login to DockerHub'){
             steps {
-                sh  'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                sh  'echo $DockerHub_PSW | docker login -u $DockerHub_USR --password-stdin'
             }
         }
         
