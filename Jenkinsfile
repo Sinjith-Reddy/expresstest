@@ -44,7 +44,7 @@ pipeline {
         //deploy docker image
           stage('deploy docker image'){
               steps{
-                  sshagent(credentials:['centos']) {
+                  sshagent(credentials:['EC2']) {
                       sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USR}@${REMOTE_SERVER} 'docker stop hello-world-js || true && docker rm hello-world-js || true'"
                       sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USR}@${REMOTE_SERVER} 'docker pull sinjithreddy/hello-world-js'"
                       sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USR}@${REMOTE_SERVER} 'docker run --name hello-world-js -d -p 8000:3000 sinjithreddy/hello-world-js'"
