@@ -1,7 +1,7 @@
 pipeline {
     agent { label 'nodejs'}
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerID')
+        DOCKERHUB_CREDENTIALS = credentials('DockerHub')
         REMOTE_SERVER = '3.91.213.166'
         REMOTE_USER = 'centos'
     }
