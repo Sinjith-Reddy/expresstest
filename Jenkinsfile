@@ -21,7 +21,7 @@ pipeline {
         // build docker image
         stage('Build Docker Image'){
             steps {
-            sh 'docker build -t hello-world-js:latest .'
+            sh 'docker build -t sinjithreddy/hello-world-js:latest .'
             }
         }
         //Login and Push image to DockerHub 
