@@ -23,8 +23,8 @@ pipeline {
             sh 'docker tag hello-world-expressjs sinjithreddy/hello-world-expressjs:latest'
             }
         }
-       /* //Login and Push image to DockerHub 
-        stage ('Login to DockerHub'){
+        //Login and Push image to DockerHub 
+        /*stage ('Login to DockerHub'){
             steps {
                 sh  'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
