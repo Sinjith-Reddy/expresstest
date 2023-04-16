@@ -42,7 +42,7 @@ pipeline {
         //deploy docker image
           stage('deploy docker image'){
               steps{
-                aws ecs update-service --cluster expressApp-Cluster --service expressApp-service --force-new-deployment
+                sh 'aws ecs update-service --cluster expressApp-Cluster --service expressApp-service --force-new-deployment'
               }
             
           }
