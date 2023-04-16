@@ -1,0 +1,51 @@
+pipeline {
+    agent any
+    environment {
+        DockerHub = credentials('DockerHub')
+    }
+    stages {
+        // Fetch code from  github  
+        stage('checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Sinjith-Reddy/expresstest.git'
+            }
+        }
+        // Build application
+        stage('Build'){
+            steps{
+                sh 'npm install'
+            }
+        }
+        // build docker image
+        stage('Build Docker Image'){
+            steps {
+            sh 'docker build -t sinjithreddy/hello-world-js:latest .'
+            }
+        }
+       //Login and Push image to DockerHub 
+        stage ('Login to DockerHub'){
+            steps {
+                sh  'echo $DockerHub_PSW | docker login -u $DockerHub_USR --password-stdin'
+            }
+        }
+        
+        stage('Push image to DockerHub'){
+            steps{
+                sh 'docker push sinjithreddy/hello-world-js:latest'
+            }
+            post {
+              always {
+                sh 'docker logout'
+              }
+            }
+        }
+        //deploy docker image
+          stage('deploy docker image'){
+              steps{
+                aws ecs update-service --cluster expressApp-Cluster --service expressApp-service --force-new-deployment
+              }
+            
+          }
+          
+    }
+}
